@@ -12,6 +12,9 @@ import java.util.HashSet;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.slf4j.Logger;
@@ -19,7 +22,7 @@ import org.slf4j.LoggerFactory;
 
 import com.synergyj.bookmule.core.domain.Libro;
 import com.synergyj.bookmule.core.domain.beans.CriterioBusquedaLibro;
-import com.synergyj.bookmule.core.services.LibroService;
+import com.synergyj.bookmule.core.services.impl.LibroServiceImpl;
 import com.synergyj.bookmule.persistence.dao.LibroDAO;
 
 //import com.synergyj.bookmule.core.services.impl.LibroServiceImpl;
@@ -36,7 +39,7 @@ import com.synergyj.bookmule.persistence.dao.LibroDAO;
  * @version 1.0
  */
 // TODO A) configurar MockitoJunitRunner
-
+@RunWith(MockitoJUnitRunner.class)
 public class LibroServiceMockTestCase {
 
 	/**
@@ -50,14 +53,18 @@ public class LibroServiceMockTestCase {
 	 * son inyectadas con los atributos de esta clase anotados con @Mock
 	 */
 	// TODO B) Anotar con @InjectMocks y revisar el tipo de dato del atributo
-
-	private LibroService libroService;
+	// Se le indica al framework que injecte los mockobjcts que se encuentren en
+	// esta clase
+	@InjectMocks
+	private LibroServiceImpl libroService;
 
 	/**
 	 * Mock object inyectado en el atributo clienteService
 	 */
 	// TODO C) Anotar con @Mock
-
+	// se llama libroDAO para que por nombre pueda inyectar el recurso que
+	// ocupala clase servicionimpl
+	@Mock
 	private LibroDAO libroDAO;
 
 	private CriterioBusquedaLibro libroNuevo, libroExistente;
@@ -85,6 +92,7 @@ public class LibroServiceMockTestCase {
 
 		// TODO D) Agregar una instrucción para el método crea del dao, emplear
 		// doNothing
+		Mockito.doNothing().when(libroDAO).crea(libroNuevo);
 
 	}
 
@@ -100,6 +108,8 @@ public class LibroServiceMockTestCase {
 		logger.debug("Creando un libro");
 		libroService.creaLibro(libroNuevo);
 
+		// verificamos si efectivamente se invokquen los metodos y las veces
+		// necesarias
 		Mockito.verify(libroDAO).busca(libroNuevo);
 		Mockito.verify(libroDAO, Mockito.times(1)).crea(libroNuevo);
 
@@ -118,6 +128,9 @@ public class LibroServiceMockTestCase {
 			// TODO E) agregar 2 expresiones con Mockito para validar que se
 			// invoque al método busca
 			// del dao, y que no se haya ejecutado al metodo crea.
+
+			Mockito.verify(libroDAO).busca(libroExistente);
+			Mockito.verify(libroDAO, Mockito.times(0)).crea(libroExistente);
 
 			logger.debug("excepcion lanzada: {}", e.getMessage());
 			throw e;
