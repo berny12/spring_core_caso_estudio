@@ -1,0 +1,328 @@
+03-05 14:15:06 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Error de Sintaxis en sentencia SQL "  
+
+CREATE TABLE LIBRO(
+    LIBRO_ID                IDENTITY
+    TITULO[*]                  VARCHAR(100)      NOT NULL,
+    EDICION                 DECIMAL(2, 0)     NOT NULL,
+    ISBN                    VARCHAR(100)      NOT NULL,
+    CODIGO_COLOR            VARCHAR(6)        NOT NULL,
+    CODIGO_CLASIFICACION    VARCHAR(100)      NOT NULL,
+    NUMERO_EJEMPLARES       DECIMAL(4, 0)     NOT NULL,
+    PRECIO_VENTA            DECIMAL(6, 2)     NOT NULL,
+    EDITORIAL_ID            DECIMAL(4, 0)     NOT NULL,
+    STATUS_LIBRO_ID         DECIMAL(2, 0)     NOT NULL,
+    PRIMARY KEY (LIBRO_ID), 
+    FOREIGN KEY (EDITORIAL_ID)
+    REFERENCES EDITORIAL(EDITORIAL_ID),
+    FOREIGN KEY (STATUS_LIBRO_ID)
+    REFERENCES STATUS_LIBRO(STATUS_LIBRO_ID)
+) "; se esperaba "(, NOT, NULL, AS, DEFAULT, GENERATED, NOT, NULL, AUTO_INCREMENT, BIGSERIAL, SERIAL, IDENTITY, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, PRIMARY, UNIQUE, NOT, NULL, CHECK, REFERENCES, ,, )"
+Syntax error in SQL statement "  
+
+CREATE TABLE LIBRO(
+    LIBRO_ID                IDENTITY
+    TITULO[*]                  VARCHAR(100)      NOT NULL,
+    EDICION                 DECIMAL(2, 0)     NOT NULL,
+    ISBN                    VARCHAR(100)      NOT NULL,
+    CODIGO_COLOR            VARCHAR(6)        NOT NULL,
+    CODIGO_CLASIFICACION    VARCHAR(100)      NOT NULL,
+    NUMERO_EJEMPLARES       DECIMAL(4, 0)     NOT NULL,
+    PRECIO_VENTA            DECIMAL(6, 2)     NOT NULL,
+    EDITORIAL_ID            DECIMAL(4, 0)     NOT NULL,
+    STATUS_LIBRO_ID         DECIMAL(2, 0)     NOT NULL,
+    PRIMARY KEY (LIBRO_ID), 
+    FOREIGN KEY (EDITORIAL_ID)
+    REFERENCES EDITORIAL(EDITORIAL_ID),
+    FOREIGN KEY (STATUS_LIBRO_ID)
+    REFERENCES STATUS_LIBRO(STATUS_LIBRO_ID)
+) "; expected "(, NOT, NULL, AS, DEFAULT, GENERATED, NOT, NULL, AUTO_INCREMENT, BIGSERIAL, SERIAL, IDENTITY, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, PRIMARY, UNIQUE, NOT, NULL, CHECK, REFERENCES, ,, )"; SQL statement:
+--
+
+CREATE TABLE LIBRO(
+    LIBRO_ID                IDENTITY
+    TITULO                  VARCHAR(100)      NOT NULL,
+    EDICION                 DECIMAL(2, 0)     NOT NULL,
+    ISBN                    VARCHAR(100)      NOT NULL,
+    CODIGO_COLOR            VARCHAR(6)        NOT NULL,
+    CODIGO_CLASIFICACION    VARCHAR(100)      NOT NULL,
+    NUMERO_EJEMPLARES       DECIMAL(4, 0)     NOT NULL,
+    PRECIO_VENTA            DECIMAL(6, 2)     NOT NULL,
+    EDITORIAL_ID            DECIMAL(4, 0)     NOT NULL,
+    STATUS_LIBRO_ID         DECIMAL(2, 0)     NOT NULL,
+    PRIMARY KEY (LIBRO_ID), 
+    FOREIGN KEY (EDITORIAL_ID)
+    REFERENCES EDITORIAL(EDITORIAL_ID),
+    FOREIGN KEY (STATUS_LIBRO_ID)
+    REFERENCES STATUS_LIBRO(STATUS_LIBRO_ID)
+) [42001-170]
+03-05 14:17:22 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Error de Sintaxis en sentencia SQL "DESC[*] LIBRO"; se esperaba "DELETE, DROP, DECLARE, DEALLOCATE, {"
+Syntax error in SQL statement "DESC[*] LIBRO"; expected "DELETE, DROP, DECLARE, DEALLOCATE, {"; SQL statement:
+DESC LIBRO [42001-170]
+03-05 14:17:31 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Error de Sintaxis en sentencia SQL "DESCRIBE[*] LIBRO"; se esperaba "DELETE, DROP, DECLARE, DEALLOCATE, {"
+Syntax error in SQL statement "DESCRIBE[*] LIBRO"; expected "DELETE, DROP, DECLARE, DEALLOCATE, {"; SQL statement:
+DESCRIBE LIBRO [42001-170]
+03-06 14:23:37 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Column "CLIENTE0_.CLIENTEFRECUENTE_ID" not found; SQL statement:
+select cliente0_.CLIENTE_ID as CLIENTE1_0_0_, cliente0_.NOMBRE as NOMBRE0_0_, cliente0_.APELLIDO_PATERNO as APELLIDO3_0_0_, cliente0_.APELLIDO_MATERNO as APELLIDO4_0_0_, cliente0_.EMAIL as EMAIL0_0_, cliente0_.RFC as RFC0_0_, cliente0_.TELEFONO as TELEFONO0_0_, cliente0_.DIRECCION as DIRECCION0_0_, cliente0_.USUARIO as USUARIO0_0_, cliente0_.PASSWORD as PASSWORD0_0_, cliente0_.CLIENTEFRECUENTE_ID as CLIENTE11_0_0_, cliente0_.TIPO_CLIENTE_ID as TIPO12_0_0_, cliente0_.TARJETA_CREDITO_ID as TARJETA13_0_0_ from CLIENTE cliente0_ where cliente0_.CLIENTE_ID=? [42122-170]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:329)
+	at org.h2.message.DbException.get(DbException.java:169)
+	at org.h2.message.DbException.get(DbException.java:146)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:141)
+	at org.h2.expression.Alias.optimize(Alias.java:47)
+	at org.h2.command.dml.Select.prepare(Select.java:799)
+	at org.h2.command.Parser.prepareCommand(Parser.java:218)
+	at org.h2.engine.Session.prepareLocal(Session.java:414)
+	at org.h2.engine.Session.prepareCommand(Session.java:363)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1116)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:74)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:267)
+	at org.apache.commons.dbcp.DelegatingConnection.prepareStatement(DelegatingConnection.java:281)
+	at org.apache.commons.dbcp.PoolingDataSource$PoolGuardConnectionWrapper.prepareStatement(PoolingDataSource.java:313)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:601)
+	at org.hibernate.engine.jdbc.internal.proxy.ConnectionProxyHandler.continueInvocation(ConnectionProxyHandler.java:138)
+	at org.hibernate.engine.jdbc.internal.proxy.AbstractProxyHandler.invoke(AbstractProxyHandler.java:81)
+	at sun.proxy.$Proxy15.prepareStatement(Unknown Source)
+	at org.hibernate.engine.jdbc.internal.StatementPreparerImpl$5.doPrepare(StatementPreparerImpl.java:147)
+	at org.hibernate.engine.jdbc.internal.StatementPreparerImpl$StatementPreparationTemplate.prepareStatement(StatementPreparerImpl.java:166)
+	at org.hibernate.engine.jdbc.internal.StatementPreparerImpl.prepareQueryStatement(StatementPreparerImpl.java:145)
+	at org.hibernate.loader.Loader.prepareQueryStatement(Loader.java:1854)
+	at org.hibernate.loader.Loader.executeQueryStatement(Loader.java:1831)
+	at org.hibernate.loader.Loader.executeQueryStatement(Loader.java:1811)
+	at org.hibernate.loader.Loader.doQuery(Loader.java:899)
+	at org.hibernate.loader.Loader.doQueryAndInitializeNonLazyCollections(Loader.java:341)
+	at org.hibernate.loader.Loader.doQueryAndInitializeNonLazyCollections(Loader.java:311)
+	at org.hibernate.loader.Loader.loadEntity(Loader.java:2111)
+	at org.hibernate.loader.entity.AbstractEntityLoader.load(AbstractEntityLoader.java:82)
+	at org.hibernate.loader.entity.AbstractEntityLoader.load(AbstractEntityLoader.java:72)
+	at org.hibernate.persister.entity.AbstractEntityPersister.load(AbstractEntityPersister.java:3887)
+	at org.hibernate.event.internal.DefaultLoadEventListener.loadFromDatasource(DefaultLoadEventListener.java:458)
+	at org.hibernate.event.internal.DefaultLoadEventListener.doLoad(DefaultLoadEventListener.java:427)
+	at org.hibernate.event.internal.DefaultLoadEventListener.load(DefaultLoadEventListener.java:204)
+	at org.hibernate.event.internal.DefaultLoadEventListener.proxyOrLoad(DefaultLoadEventListener.java:260)
+	at org.hibernate.event.internal.DefaultLoadEventListener.onLoad(DefaultLoadEventListener.java:148)
+	at org.hibernate.internal.SessionImpl.fireLoad(SessionImpl.java:1078)
+	at org.hibernate.internal.SessionImpl.access$2000(SessionImpl.java:175)
+	at org.hibernate.internal.SessionImpl$IdentifierLoadAccessImpl.load(SessionImpl.java:2424)
+	at org.hibernate.internal.SessionImpl.get(SessionImpl.java:974)
+	at com.synergyj.bookmule.dao.impl.ClienteDAOImpl.get(ClienteDAOImpl.java:75)
+	at com.synergyj.bookmule.test.ClienteDAOTestCase.test(ClienteDAOTestCase.java:58)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:601)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestMethodCallbacks.evaluate(RunBeforeTestMethodCallbacks.java:74)
+	at org.springframework.test.context.junit4.statements.RunAfterTestMethodCallbacks.evaluate(RunAfterTestMethodCallbacks.java:83)
+	at org.springframework.test.context.junit4.statements.SpringRepeat.evaluate(SpringRepeat.java:72)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:231)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:88)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:71)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:174)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:467)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:683)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:390)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:197)
+03-06 14:24:25 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Column "CLIENTE0_.TARJETA_CREDITO_ID" not found; SQL statement:
+select cliente0_.CLIENTE_ID as CLIENTE1_0_0_, cliente0_.NOMBRE as NOMBRE0_0_, cliente0_.APELLIDO_PATERNO as APELLIDO3_0_0_, cliente0_.APELLIDO_MATERNO as APELLIDO4_0_0_, cliente0_.EMAIL as EMAIL0_0_, cliente0_.RFC as RFC0_0_, cliente0_.TELEFONO as TELEFONO0_0_, cliente0_.DIRECCION as DIRECCION0_0_, cliente0_.USUARIO as USUARIO0_0_, cliente0_.PASSWORD as PASSWORD0_0_, cliente0_.CLIENTE_FRECUENTE_ID as CLIENTE11_0_0_, cliente0_.TIPO_CLIENTE_ID as TIPO12_0_0_, cliente0_.TARJETA_CREDITO_ID as TARJETA13_0_0_ from CLIENTE cliente0_ where cliente0_.CLIENTE_ID=? [42122-170]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:329)
+	at org.h2.message.DbException.get(DbException.java:169)
+	at org.h2.message.DbException.get(DbException.java:146)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:141)
+	at org.h2.expression.Alias.optimize(Alias.java:47)
+	at org.h2.command.dml.Select.prepare(Select.java:799)
+	at org.h2.command.Parser.prepareCommand(Parser.java:218)
+	at org.h2.engine.Session.prepareLocal(Session.java:414)
+	at org.h2.engine.Session.prepareCommand(Session.java:363)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1116)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:74)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:267)
+	at org.apache.commons.dbcp.DelegatingConnection.prepareStatement(DelegatingConnection.java:281)
+	at org.apache.commons.dbcp.PoolingDataSource$PoolGuardConnectionWrapper.prepareStatement(PoolingDataSource.java:313)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:601)
+	at org.hibernate.engine.jdbc.internal.proxy.ConnectionProxyHandler.continueInvocation(ConnectionProxyHandler.java:138)
+	at org.hibernate.engine.jdbc.internal.proxy.AbstractProxyHandler.invoke(AbstractProxyHandler.java:81)
+	at sun.proxy.$Proxy15.prepareStatement(Unknown Source)
+	at org.hibernate.engine.jdbc.internal.StatementPreparerImpl$5.doPrepare(StatementPreparerImpl.java:147)
+	at org.hibernate.engine.jdbc.internal.StatementPreparerImpl$StatementPreparationTemplate.prepareStatement(StatementPreparerImpl.java:166)
+	at org.hibernate.engine.jdbc.internal.StatementPreparerImpl.prepareQueryStatement(StatementPreparerImpl.java:145)
+	at org.hibernate.loader.Loader.prepareQueryStatement(Loader.java:1854)
+	at org.hibernate.loader.Loader.executeQueryStatement(Loader.java:1831)
+	at org.hibernate.loader.Loader.executeQueryStatement(Loader.java:1811)
+	at org.hibernate.loader.Loader.doQuery(Loader.java:899)
+	at org.hibernate.loader.Loader.doQueryAndInitializeNonLazyCollections(Loader.java:341)
+	at org.hibernate.loader.Loader.doQueryAndInitializeNonLazyCollections(Loader.java:311)
+	at org.hibernate.loader.Loader.loadEntity(Loader.java:2111)
+	at org.hibernate.loader.entity.AbstractEntityLoader.load(AbstractEntityLoader.java:82)
+	at org.hibernate.loader.entity.AbstractEntityLoader.load(AbstractEntityLoader.java:72)
+	at org.hibernate.persister.entity.AbstractEntityPersister.load(AbstractEntityPersister.java:3887)
+	at org.hibernate.event.internal.DefaultLoadEventListener.loadFromDatasource(DefaultLoadEventListener.java:458)
+	at org.hibernate.event.internal.DefaultLoadEventListener.doLoad(DefaultLoadEventListener.java:427)
+	at org.hibernate.event.internal.DefaultLoadEventListener.load(DefaultLoadEventListener.java:204)
+	at org.hibernate.event.internal.DefaultLoadEventListener.proxyOrLoad(DefaultLoadEventListener.java:260)
+	at org.hibernate.event.internal.DefaultLoadEventListener.onLoad(DefaultLoadEventListener.java:148)
+	at org.hibernate.internal.SessionImpl.fireLoad(SessionImpl.java:1078)
+	at org.hibernate.internal.SessionImpl.access$2000(SessionImpl.java:175)
+	at org.hibernate.internal.SessionImpl$IdentifierLoadAccessImpl.load(SessionImpl.java:2424)
+	at org.hibernate.internal.SessionImpl.get(SessionImpl.java:974)
+	at com.synergyj.bookmule.dao.impl.ClienteDAOImpl.get(ClienteDAOImpl.java:75)
+	at com.synergyj.bookmule.test.ClienteDAOTestCase.test(ClienteDAOTestCase.java:58)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:601)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestMethodCallbacks.evaluate(RunBeforeTestMethodCallbacks.java:74)
+	at org.springframework.test.context.junit4.statements.RunAfterTestMethodCallbacks.evaluate(RunAfterTestMethodCallbacks.java:83)
+	at org.springframework.test.context.junit4.statements.SpringRepeat.evaluate(SpringRepeat.java:72)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:231)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:88)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:71)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:174)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:467)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:683)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:390)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:197)
+03-07 12:37:23 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Tabla "TIPO_TARJETA" no encontrada
+Table "TIPO_TARJETA" not found; SQL statement:
+--TIPO_TARJETA
+INSERT INTO TIPO_TARJETA(TIPO_TARJETA_ID, CLAVE,DESCRIPCION,ACTIVO) VALUES(1,'VISA','VISA',true) [42102-170]
+03-07 12:37:23 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Tabla "TIPO_TARJETA" no encontrada
+Table "TIPO_TARJETA" not found; SQL statement:
+INSERT INTO TIPO_TARJETA(TIPO_TARJETA_ID, CLAVE,DESCRIPCION,ACTIVO) VALUES(2,'MASTER CARD','MASTERD CARD',true) [42102-170]
+03-07 12:37:23 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Tabla "TIPO_TARJETA" no encontrada
+Table "TIPO_TARJETA" not found; SQL statement:
+INSERT INTO TIPO_TARJETA(TIPO_TARJETA_ID, CLAVE,DESCRIPCION,ACTIVO) VALUES(3,'AMERICAN EXPRESS','AMERICAN EXPRESS',true) [42102-170]
+03-07 12:39:02 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Tabla "TIPO_TARJETA" no encontrada
+Table "TIPO_TARJETA" not found; SQL statement:
+--TIPO_TARJETA
+INSERT INTO TIPO_TARJETA(TIPO_TARJETA_ID, CLAVE,DESCRIPCION,ACTIVO) VALUES(1,'VISA','VISA',true) [42102-170]
+03-07 12:39:02 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Tabla "TIPO_TARJETA" no encontrada
+Table "TIPO_TARJETA" not found; SQL statement:
+INSERT INTO TIPO_TARJETA(TIPO_TARJETA_ID, CLAVE,DESCRIPCION,ACTIVO) VALUES(2,'MASTER CARD','MASTERD CARD',true) [42102-170]
+03-07 12:39:02 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Tabla "TIPO_TARJETA" no encontrada
+Table "TIPO_TARJETA" not found; SQL statement:
+INSERT INTO TIPO_TARJETA(TIPO_TARJETA_ID, CLAVE,DESCRIPCION,ACTIVO) VALUES(3,'AMERICAN EXPRESS','AMERICAN EXPRESS',true) [42102-170]
+03-07 12:48:49 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Error de Sintaxis en sentencia SQL "ALTER TABLE TIPO_TARJETA ADD TIPO_TARJETA_ID DECIMAL(2,0)  REFERENCES[*] TIPO_TARJETA(TIPO_TARJETA_ID)"
+Syntax error in SQL statement "ALTER TABLE TIPO_TARJETA ADD TIPO_TARJETA_ID DECIMAL(2,0)  REFERENCES[*] TIPO_TARJETA(TIPO_TARJETA_ID)"; SQL statement:
+ALTER TABLE TIPO_TARJETA ADD TIPO_TARJETA_ID DECIMAL(2,0)  REFERENCES TIPO_TARJETA(TIPO_TARJETA_ID) [42000-170]
+03-07 12:49:03 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Error de Sintaxis en sentencia SQL "ALTER TABLE TIPO_TARJETA  TIPO_TARJETA_ID[*] DECIMAL(2,0)  REFERENCES TIPO_TARJETA(TIPO_TARJETA_ID)"; se esperaba "., ADD, SET, RENAME, DROP, ALTER"
+Syntax error in SQL statement "ALTER TABLE TIPO_TARJETA  TIPO_TARJETA_ID[*] DECIMAL(2,0)  REFERENCES TIPO_TARJETA(TIPO_TARJETA_ID)"; expected "., ADD, SET, RENAME, DROP, ALTER"; SQL statement:
+ALTER TABLE TIPO_TARJETA  TIPO_TARJETA_ID DECIMAL(2,0)  REFERENCES TIPO_TARJETA(TIPO_TARJETA_ID) [42001-170]
+03-07 12:49:14 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Error de Sintaxis en sentencia SQL "ALTER TABLE TIPO_TARJETA ADD TIPO_TARJETA_ID DECIMAL(2,0)  REFERENCES[*] TIPO_TARJETA(TIPO_TARJETA_ID)"
+Syntax error in SQL statement "ALTER TABLE TIPO_TARJETA ADD TIPO_TARJETA_ID DECIMAL(2,0)  REFERENCES[*] TIPO_TARJETA(TIPO_TARJETA_ID)"; SQL statement:
+ALTER TABLE TIPO_TARJETA ADD TIPO_TARJETA_ID DECIMAL(2,0)  REFERENCES TIPO_TARJETA(TIPO_TARJETA_ID) [42000-170]
+03-07 12:50:02 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Error de Sintaxis en sentencia SQL "ALTER TABLE TIPO_TARJETA ADD TIPO_TARJETA_ID DECIMAL(2,0) FOREIGN[*] KEY (TIPO_TARJETA_ID) REFERENCES TIPO_TARJETA(TIPO_TARJETA_ID)"
+Syntax error in SQL statement "ALTER TABLE TIPO_TARJETA ADD TIPO_TARJETA_ID DECIMAL(2,0) FOREIGN[*] KEY (TIPO_TARJETA_ID) REFERENCES TIPO_TARJETA(TIPO_TARJETA_ID)"; SQL statement:
+ALTER TABLE TIPO_TARJETA ADD TIPO_TARJETA_ID DECIMAL(2,0) FOREIGN KEY (TIPO_TARJETA_ID) REFERENCES TIPO_TARJETA(TIPO_TARJETA_ID) [42000-170]
+03-07 12:50:43 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Error de Sintaxis en sentencia SQL "ALTER TABLE TARJETA_CREDITO ADD TIPO_TARJETA_ID DECIMAL(2,0) REFERENCES[*] TIPO_TARJETA(TIPO_TARJETA_ID)"
+Syntax error in SQL statement "ALTER TABLE TARJETA_CREDITO ADD TIPO_TARJETA_ID DECIMAL(2,0) REFERENCES[*] TIPO_TARJETA(TIPO_TARJETA_ID)"; SQL statement:
+ALTER TABLE TARJETA_CREDITO ADD TIPO_TARJETA_ID DECIMAL(2,0) REFERENCES TIPO_TARJETA(TIPO_TARJETA_ID) [42000-170]
+03-07 12:51:29 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Error de Sintaxis en sentencia SQL "ALTER TABLE TARJETA_CREDITO ADD TIPO_TARJETA_ID DECIMAL(2,0)  NOT NULL REFERENCES[*] TIPO_TARJETA(TIPO_TARJETA_ID)"
+Syntax error in SQL statement "ALTER TABLE TARJETA_CREDITO ADD TIPO_TARJETA_ID DECIMAL(2,0)  NOT NULL REFERENCES[*] TIPO_TARJETA(TIPO_TARJETA_ID)"; SQL statement:
+ALTER TABLE TARJETA_CREDITO ADD TIPO_TARJETA_ID DECIMAL(2,0)  NOT NULL REFERENCES TIPO_TARJETA(TIPO_TARJETA_ID) [42000-170]
+03-07 12:51:53 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Error de Sintaxis en sentencia SQL "ALTER TABLE TARJETA_CREDITO ADD TIPO_TARJETA_ID DECIMAL(2,0)  NOT NULL REFERENCES[*] TIPO_TARJETA(TIPO_TARJETA_ID)"
+Syntax error in SQL statement "ALTER TABLE TARJETA_CREDITO ADD TIPO_TARJETA_ID DECIMAL(2,0)  NOT NULL REFERENCES[*] TIPO_TARJETA(TIPO_TARJETA_ID)"; SQL statement:
+ALTER TABLE TARJETA_CREDITO ADD TIPO_TARJETA_ID DECIMAL(2,0)  NOT NULL REFERENCES TIPO_TARJETA(TIPO_TARJETA_ID) [42000-170]
+03-07 12:52:23 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Tipo de dato desconocido : "NOT"
+Unknown data type: "NOT"; SQL statement:
+ALTER TABLE TARJETA_CREDITO ADD TIPO_TARJETA_ID NOT NULL REFERENCES TIPO_TARJETA(TIPO_TARJETA_ID) [50004-170]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:329)
+	at org.h2.message.DbException.get(DbException.java:169)
+	at org.h2.message.DbException.get(DbException.java:146)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:3653)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:3516)
+	at org.h2.command.Parser.parseAlterTableAddColumn(Parser.java:4986)
+	at org.h2.command.Parser.parseAlterTable(Parser.java:4831)
+	at org.h2.command.Parser.parseAlter(Parser.java:4314)
+	at org.h2.command.Parser.parsePrepared(Parser.java:305)
+	at org.h2.command.Parser.parse(Parser.java:278)
+	at org.h2.command.Parser.parse(Parser.java:250)
+	at org.h2.command.Parser.prepareCommand(Parser.java:217)
+	at org.h2.engine.Session.prepareLocal(Session.java:414)
+	at org.h2.engine.Session.prepareCommand(Session.java:363)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1116)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:164)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:152)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1311)
+	at org.h2.server.web.WebApp.query(WebApp.java:1001)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:964)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:953)
+	at org.h2.server.web.WebThread.process(WebThread.java:166)
+	at org.h2.server.web.WebThread.run(WebThread.java:93)
+	at java.lang.Thread.run(Thread.java:722)
+03-07 12:52:58 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Error de Sintaxis en sentencia SQL "ALTER TABLE TARJETA_CREDITO ADD TIPO_TARJETA_ID DECIMAL(2,0) NOT NULL CONSTRAINT[*] TIPO_TARJETA_ID_FK REFERENCES TIPO_TARJETA(TIPO_TARJETA_ID) "
+Syntax error in SQL statement "ALTER TABLE TARJETA_CREDITO ADD TIPO_TARJETA_ID DECIMAL(2,0) NOT NULL CONSTRAINT[*] TIPO_TARJETA_ID_FK REFERENCES TIPO_TARJETA(TIPO_TARJETA_ID) "; SQL statement:
+ALTER TABLE TARJETA_CREDITO ADD TIPO_TARJETA_ID DECIMAL(2,0) NOT NULL CONSTRAINT tipo_tarjeta_id_fk REFERENCES TIPO_TARJETA(TIPO_TARJETA_ID) [42000-170]
+03-07 12:54:31 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Constraint "TIPO_TARJETA_ID_FK" ya existe
+Constraint "TIPO_TARJETA_ID_FK" already exists; SQL statement:
+ALTER TABLE TARJETA_CREDITO ADD CONSTRAINT tipo_tarjeta_id_fk  FOREIGN KEY (TIPO_TARJETA_ID) REFERENCES TIPO_TARJETA(TIPO_TARJETA_ID) [90045-170]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:329)
+	at org.h2.message.DbException.get(DbException.java:169)
+	at org.h2.message.DbException.get(DbException.java:146)
+	at org.h2.command.ddl.AlterTableAddConstraint.tryUpdate(AlterTableAddConstraint.java:89)
+	at org.h2.command.ddl.AlterTableAddConstraint.update(AlterTableAddConstraint.java:68)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:75)
+	at org.h2.command.Command.executeUpdate(Command.java:230)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:177)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:152)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1311)
+	at org.h2.server.web.WebApp.query(WebApp.java:1001)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:964)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:953)
+	at org.h2.server.web.WebThread.process(WebThread.java:166)
+	at org.h2.server.web.WebThread.run(WebThread.java:93)
+	at java.lang.Thread.run(Thread.java:722)
+08-14 11:41:42 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Error de Sintaxis en sentencia SQL "LIBRO[*] SELECT * FROM IMAGEN_LIBRO"
+Syntax error in SQL statement "LIBRO[*] SELECT * FROM IMAGEN_LIBRO"; SQL statement:
+LIBRO SELECT * FROM IMAGEN_LIBRO [42000-170]

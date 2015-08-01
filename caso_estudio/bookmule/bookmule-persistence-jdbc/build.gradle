@@ -1,0 +1,14 @@
+dependencies {
+	compile project(':bookmule-core-domain')
+	compile project(':bookmule-persistence')
+	// se elimina esta dependencia es innecesaria
+	//compile project(':bookmule-core-services')
+	compile "org.springframework:spring-context:$springVersion"
+	compile "org.springframework:spring-jdbc:$springVersion"
+	compile "org.springframework:spring-test:$springVersion"
+
+	runtime "com.h2database:h2:$h2Version"
+	runtime "commons-dbcp:commons-dbcp:$commonsDbcpVersion"
+
+	testCompile "commons-beanutils:commons-beanutils:$commonsBeanUtilsVersion"
+}

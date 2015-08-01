@@ -10,31 +10,24 @@ package com.synergyj.bookmule.persistence.dao;
 
 import java.util.Set;
 
-import com.synergyj.bookmule.core.domain.Libro;
-import com.synergyj.bookmule.core.domain.beans.CriterioBusquedaLibro;
+import com.synergyj.bookmule.core.domain.Proveedor;
 
 /**
  * @author Jorge Rodríguez Campos (jorge.rodriguez@synergyj.com)
  */
-public interface LibroDAO {
+public interface ProveedorDAO {
+
+	void crea(Proveedor proveedor);
 
 	/**
-	 * Crea un libro, el id generado se asigna en el atributo ld del objeto que se pasa como
-	 * parámetro.
-	 * @param libro
-	 */
-	void crea(Libro libro);
-
-	/**
-	 * @param libro
+	 * @param criterios de busqueda.
 	 * @return
 	 */
-	Set<Libro> busca(CriterioBusquedaLibro criterios);
+	Set<Proveedor> busca(Proveedor proveedor);
 
 	/**
 	 * @param id
 	 * @return
 	 */
-	Libro findById(Long id);
-
+	Proveedor findById(Long id);
 }
