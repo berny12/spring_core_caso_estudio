@@ -1,0 +1,5 @@
+// este archivo sirve para decirle al proyecto grade cual es la ubicación de os proyectos
+// deben incluir los subproductos partir de donde se encuentra el build.gradle del padre
+
+include 'bookmule-core-domain', 'bookmule-core-services', 'bookmule-persistence',
+'bookmule-persistence-jdbc','bookmule-persistence-hibernate','bookmule-web'

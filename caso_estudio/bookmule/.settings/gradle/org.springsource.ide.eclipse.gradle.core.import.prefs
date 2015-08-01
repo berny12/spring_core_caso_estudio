@@ -1,0 +1,9 @@
+#org.springsource.ide.eclipse.gradle.core.preferences.GradleImportPreferences
+#Sat Aug 01 10:42:30 CDT 2015
+addResourceFilters=true
+afterTasks=afterEclipseImport;
+beforeTasks=cleanEclipse;eclipse;
+enableAfterTasks=true
+enableBeforeTasks=true
+enableDependendencyManagement=true
+projects=;bookmule-core-domain;bookmule-core-services;bookmule-persistence;bookmule-persistence-hibernate;bookmule-persistence-jdbc;bookmule-web;

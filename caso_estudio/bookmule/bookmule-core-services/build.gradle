@@ -1,0 +1,12 @@
+dependencies{
+	//TODO, agregar las dependencias de los proyectos core-domain y persistence
+	
+	compile project(':bookmule-core-domain')
+	compile project(':bookmule-persistence')
+	
+	compile "org.springframework:spring-context:$springVersion"
+	compile "org.springframework:spring-tx:$springVersion"
+
+	testCompile "org.springframework:spring-test:$springVersion"
+	testCompile "org.mockito:mockito-all:$mockitoVersion"
+}

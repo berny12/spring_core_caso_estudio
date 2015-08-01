@@ -1,0 +1,5 @@
+#org.springsource.ide.eclipse.gradle.core.preferences.GradleProjectPreferences
+#Sat Aug 01 10:42:37 CDT 2015
+build.family.org.gradle.tooling.model.eclipse.HierarchicalEclipseProject=;bookmule-core-domain;bookmule-core-services;bookmule-persistence;bookmule-persistence-hibernate;bookmule-persistence-jdbc;bookmule-web;
+org.springsource.ide.eclipse.gradle.linkedresources=
+org.springsource.ide.eclipse.gradle.rootprojectloc=

@@ -1,0 +1,8 @@
+dependencies{
+	//TODO, agregar las dependencias de los proyectos core-domain
+	
+	compile project(':bookmule-core-domain')
+	
+	
+
+}

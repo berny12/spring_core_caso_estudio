@@ -1,0 +1,47 @@
+//TODO, Actualizar este archivo para soporte de multiproyecto.se agrega
+allprojects {
+group ='com.synergyj.bookmule'
+version = '1.0.0'
+}
+
+subprojects{
+apply plugin: 'eclipse'
+apply plugin: 'java'
+
+sourceCompatibility = 1.7
+def defaultEncoding = 'ISO-8859-1'
+compileJava { options.encoding = defaultEncoding }
+compileTestJava { options.encoding = defaultEncoding }
+
+repositories { mavenCentral() }
+
+//control de versiones
+ext{
+	springVersion='4.1.7.RELEASE'
+	h2Version='1.4.187'
+	commonsDbcpVersion='1.4'
+	commonsBeanUtilsVersion='1.9.2'
+	hibernateVersion='4.3.6.Final'
+	slf4jVersion='1.7.12'
+	
+	//testing
+	junitVersion='4.12'
+	mockitoVersion='1.9.5'
+}
+
+//dependencias iniciales para todos los proyectos
+dependencies {
+	compile "org.slf4j:slf4j-api:${slf4jVersion}"  //empleo de SL4J
+	runtime "org.slf4j:slf4j-log4j12:${slf4jVersion}" //uso de log4j
+	runtime "org.slf4j:jcl-over-slf4j:${slf4jVersion}" //puente  java commons-logging con sl4j
+
+	testCompile group: 'junit', name: 'junit', version: "${junitVersion}"
+}	
+configurations{ compile.exclude module: 'commons-logging' } //excluir commons-logging
+
+//tarea empleada para generar carpetas de código fuente
+task "create-dirs" << {
+   sourceSets*.java.srcDirs*.each { it.mkdirs() }
+   sourceSets*.resources.srcDirs*.each { it.mkdirs() }
+}
+}
