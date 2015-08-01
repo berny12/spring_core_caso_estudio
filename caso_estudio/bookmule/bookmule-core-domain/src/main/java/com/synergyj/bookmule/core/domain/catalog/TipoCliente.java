@@ -10,9 +10,14 @@ package com.synergyj.bookmule.core.domain.catalog;
 
 /**
  * Catálogo que contiene los tipos de clientes
+ * 
  * @author Maricela Barrera
  * @version 1.0
  */
+
+// los enums son constantes que representa pequeños catalogos estaticos
+// dentro de las bae de datos para mantener integridad referencial de 3 tipo
+// en java usamos la enum para eviar la consulta se pueden usar en == o
 public enum TipoCliente {
 
 	AFICIONADO(1, "AFICIONADO", "CON 5 O MENOS LIBROS COMPRADOS", true),
@@ -61,7 +66,8 @@ public enum TipoCliente {
 	}
 
 	/**
-	 * @param id para inicializar el atributo id
+	 * @param id
+	 *            para inicializar el atributo id
 	 */
 	public void setId(int id) {
 		this.id = id;
@@ -75,7 +81,8 @@ public enum TipoCliente {
 	}
 
 	/**
-	 * @param clave para inicializar el atributo clave
+	 * @param clave
+	 *            para inicializar el atributo clave
 	 */
 	public void setClave(String clave) {
 		this.clave = clave;
@@ -89,7 +96,8 @@ public enum TipoCliente {
 	}
 
 	/**
-	 * @param descripcion para inicializar el atributo descripcion
+	 * @param descripcion
+	 *            para inicializar el atributo descripcion
 	 */
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
@@ -103,7 +111,8 @@ public enum TipoCliente {
 	}
 
 	/**
-	 * @param activo para inicializar el atributo activo
+	 * @param activo
+	 *            para inicializar el atributo activo
 	 */
 	public void setActivo(boolean activo) {
 		this.activo = activo;
