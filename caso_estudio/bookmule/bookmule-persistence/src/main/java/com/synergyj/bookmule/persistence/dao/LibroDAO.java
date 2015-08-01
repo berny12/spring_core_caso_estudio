@@ -7,7 +7,7 @@ import com.synergyj.bookmule.core.domain.beans.CriterioBusquedaLibro;
 
 public interface LibroDAO {
 
-	void creaLibro(Libro libro);
+	void crea(Libro libro);
 
 	Set<Libro> busca(CriterioBusquedaLibro criterios);
 

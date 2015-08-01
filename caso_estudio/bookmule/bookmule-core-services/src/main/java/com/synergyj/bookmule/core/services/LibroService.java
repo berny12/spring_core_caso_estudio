@@ -9,7 +9,7 @@ public interface LibroService {
 
 	void creaLibro(Libro libro);
 
-	Set<Libro> buscaLibro(CriterioBusquedaLibro criterios);
+	Set<Libro> buscaLibros(CriterioBusquedaLibro criterios);
 
-	Libro findById(Long id);
+	Libro buscaPorId(Long id);
 }
