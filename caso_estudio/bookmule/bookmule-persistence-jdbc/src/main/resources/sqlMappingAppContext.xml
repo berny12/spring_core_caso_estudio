@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="tarjetaByCliente"
+		class="com.synergyj.bookmule.persistence.repository.jdbc.mapping.TarjetaCreditoMappingQuery">
+		<constructor-arg value="3" />
+		<constructor-arg ref="dataSource" />
+	</bean>
+	<bean id="tarjetaById"
+		class="com.synergyj.bookmule.persistence.repository.jdbc.mapping.TarjetaCreditoMappingQuery">
+		<constructor-arg value="1" />
+		<constructor-arg ref="dataSource" />
+	</bean>
+	<bean id="tarjetaByNumero"
+		class="com.synergyj.bookmule.persistence.repository.jdbc.mapping.TarjetaCreditoMappingQuery">
+		<constructor-arg value="2" />
+		<constructor-arg ref="dataSource" />
+	</bean>
+
+</beans>
