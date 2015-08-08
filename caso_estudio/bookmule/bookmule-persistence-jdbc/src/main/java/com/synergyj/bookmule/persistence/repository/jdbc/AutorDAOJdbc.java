@@ -20,6 +20,7 @@ import javax.sql.DataSource;
 
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -52,27 +53,32 @@ public class AutorDAOJdbc extends GenericJdbcDAO implements AutorDAO {
 
 	private static final String queryAnd = " and ";
 
+	// esta liena y el metodo se puede genrear en el geneicjdbc para evitar
+	// instancia
 	private NamedParameterJdbcTemplate namedTemplate;
 
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * com.synergyj.bookmule.persistence.repository.jdbc.GenericJdbcDAO#setJdbcDataSource(javax.sql.
-	 * DataSource)
+	 * 
+	 * @see com.synergyj.bookmule.persistence.repository.jdbc.GenericJdbcDAO#
+	 * setJdbcDataSource(javax.sql. DataSource)
 	 */
 	@Override
 	@Resource
 	public void setJdbcDataSource(DataSource ds) {
 		super.setJdbcDataSource(ds);
-		// TODO A) Inicializar namedTemplate. Observar que este objeto podría instanciarse en la
+		// TODO A) Inicializar namedTemplate. Observar que este objeto podría
+		// instanciarse en la
 		// clase base en caso que se use con alta frecuencia.
-
+		namedTemplate = new NamedParameterJdbcTemplate(ds);
 	}
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see
-	 * com.synergyj.bookmule.persistence.dao.AutorDAO#crea(com.synergyj.bookmule.core.domain.Autor)
+	 * com.synergyj.bookmule.persistence.dao.AutorDAO#crea(com.synergyj.bookmule
+	 * .core.domain.Autor)
 	 */
 	@Override
 	public void crea(Autor autor) {
@@ -82,19 +88,29 @@ public class AutorDAOJdbc extends GenericJdbcDAO implements AutorDAO {
 
 		keyHolder = new GeneratedKeyHolder();
 
-		// Ejemplo de un BeanPropertySqlParameterSource, los nombres de los parámetros deben
+		// Ejemplo de un BeanPropertySqlParameterSource, los nombres de los
+		// parámetros deben
 		// coincidir con los nombres atributos del objeto.
-		// TODO B) Completar este método empleando BeanPropertySqlParameterSource
+		// TODO B) Completar este método empleando
+		// BeanPropertySqlParameterSource
 
+		// se instancian lo parametros usando la implementacion de
+		// BeanPropertySqlParameterSource
+		params = new BeanPropertySqlParameterSource(autor);
+		rows = namedTemplate.update(queryCreaAutor, params, keyHolder);
+		autor.setId(keyHolder.getKey().longValue());
 		if (rows != 1) {
-			throw new IncorrectResultSizeDataAccessException(queryCreaAutor, 1, rows);
+			throw new IncorrectResultSizeDataAccessException(queryCreaAutor, 1,
+					rows);
 		}
 	}
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see
-	 * com.synergyj.bookmule.persistence.dao.AutorDAO#busca(com.synergyj.bookmule.core.domain.Autor)
+	 * com.synergyj.bookmule.persistence.dao.AutorDAO#busca(com.synergyj.bookmule
+	 * .core.domain.Autor)
 	 */
 	@Override
 	public Set<Autor> busca(Autor autor) {
@@ -105,9 +121,13 @@ public class AutorDAOJdbc extends GenericJdbcDAO implements AutorDAO {
 		int size;
 
 		condiciones = new ArrayList<>();
-		// C) TODO ejemplo de MapSqlParameterSource, empleado para especificar los nombres de los
-		// parametros cuando no coinciden con los del bean. Inicializar la variable params.
+		// C) TODO ejemplo de MapSqlParameterSource, empleado para especificar
+		// los nombres de los
+		// parametros cuando no coinciden con los del bean. Inicializar la
+		// variable params.
+		params = new MapSqlParameterSource();
 
+		// los parametros deben conicidor con el params de forma manual
 		if (autor.getId() != null) {
 			condiciones.add(queryId);
 			params.addValue("id", autor.getId());
@@ -127,8 +147,9 @@ public class AutorDAOJdbc extends GenericJdbcDAO implements AutorDAO {
 		sb = new StringBuilder(queryBuscaAutorPrefix);
 		size = condiciones.size();
 		if (condiciones.size() < 1) {
-			throw new IllegalArgumentException("Se requieren al menos un criterio"
-					+ " para realizar una busqueda generica de autores");
+			throw new IllegalArgumentException(
+					"Se requieren al menos un criterio"
+							+ " para realizar una busqueda generica de autores");
 		}
 		for (int i = 0; i < size; i++) {
 			sb.append(condiciones.get(i));
@@ -137,18 +158,25 @@ public class AutorDAOJdbc extends GenericJdbcDAO implements AutorDAO {
 			}
 		}
 
-		// TODO D) invocar el método query de namedTemplate para lanzar la búsqueda
-
+		// TODO D) invocar el método query de namedTemplate para lanzar la
+		// búsqueda
+		autorList = namedTemplate.query(sb.toString(), params,
+				new AutorRowMapper());
 		return new HashSet<>(autorList);
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * @see com.synergyj.bookmule.persistence.dao.AutorDAO#findAutorById(java.lang.Long)
+	 * 
+	 * @see
+	 * com.synergyj.bookmule.persistence.dao.AutorDAO#findAutorById(java.lang
+	 * .Long)
 	 */
 	@Override
 	public Autor findAutorById(Long id) {
 
+		// en ocaciones se emplear un constructor de MapsqlParamertSurce cuando
+		// hay que mandar solo uno parametro en la consulta
 		return namedTemplate.queryForObject(queryBuscaAutorPrefix + queryId,
 				new MapSqlParameterSource("id", id), new AutorRowMapper());
 	}
@@ -157,7 +185,10 @@ public class AutorDAOJdbc extends GenericJdbcDAO implements AutorDAO {
 
 		/*
 		 * (non-Javadoc)
-		 * @see org.springframework.jdbc.core.RowMapper#mapRow(java.sql.ResultSet, int)
+		 * 
+		 * @see
+		 * org.springframework.jdbc.core.RowMapper#mapRow(java.sql.ResultSet,
+		 * int)
 		 */
 		@Override
 		public Autor mapRow(ResultSet rs, int rowNum) throws SQLException {

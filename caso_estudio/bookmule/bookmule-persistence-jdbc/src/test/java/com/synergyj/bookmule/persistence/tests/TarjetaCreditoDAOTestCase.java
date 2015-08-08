@@ -32,14 +32,16 @@ import com.synergyj.bookmule.persistence.dao.TarjetaCreditoDAO;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/jdbcAppContext.xml")
-public class TarjetaCreditoDAOTestCase extends AbstractTransactionalJUnit4SpringContextTests {
+public class TarjetaCreditoDAOTestCase extends
+		AbstractTransactionalJUnit4SpringContextTests {
 	@Resource
 	TarjetaCreditoDAO tarjetaCreditoDAO;
 
 	/**
 	 * Logger para todas las instancias de la clase
 	 */
-	private static final Logger logger = LoggerFactory.getLogger(ProveedorDAOTestCase.class);
+	private static final Logger logger = LoggerFactory
+			.getLogger(ProveedorDAOTestCase.class);
 
 	@Test
 	public void creaYbuscaTarjeta() {
@@ -58,17 +60,25 @@ public class TarjetaCreditoDAOTestCase extends AbstractTransactionalJUnit4Spring
 		logger.debug("buscando por cliente:");
 		tarjetaList = tarjetaCreditoDAO.buscaPorCliente(clienteId);
 		Assert.assertTrue(tarjetaList.size() == 1);
-		BeanPropertiesComparator.compare(tarjeta, tarjetaList.iterator().next(), "id",
-				"numeroTarjeta", "mesExpiracion", "anioExpiracion", "numeroSeguridad", "banco.id",
-				"tipoTarjeta.id");
+		BeanPropertiesComparator.compare(tarjeta,
+				tarjetaList.iterator().next(), "id", "numeroTarjeta",
+				"mesExpiracion", "anioExpiracion", "numeroSeguridad",
+				"banco.id", "tipoTarjeta.id");
 
 		logger.debug("buscando por id");
 		otraTarjeta = tarjetaCreditoDAO.buscaPorId(tarjeta.getId());
-		BeanPropertiesComparator.compare(tarjeta, otraTarjeta, "id", "numeroTarjeta",
-				"mesExpiracion", "anioExpiracion", "numeroSeguridad", "banco.id", "tipoTarjeta.id");
+		BeanPropertiesComparator.compare(tarjeta, otraTarjeta, "id",
+				"numeroTarjeta", "mesExpiracion", "anioExpiracion",
+				"numeroSeguridad", "banco.id", "tipoTarjeta.id");
 
-		// TODO B) Agregar la busqueda por número de tarjeta y su correspondiente assert.
-		
+		// TODO B) Agregar la busqueda por número de tarjeta y su
+		// correspondiente assert.
+		logger.debug(" buscando por numero de tarjeta");
+		otraTarjeta = tarjetaCreditoDAO.buscaPorNumero(tarjeta
+				.getNumeroTarjeta());
+		BeanPropertiesComparator.compare(tarjeta, otraTarjeta, "id",
+				"numeroTarjeta", "mesExpiracion", "anioExpiracion",
+				"numeroSeguridad", "banco.id", "tipoTarjeta.id");
 
 	}
 
@@ -79,9 +89,11 @@ public class TarjetaCreditoDAOTestCase extends AbstractTransactionalJUnit4Spring
 	public void buscaTarjetaInexistente() {
 
 		TarjetaCredito tarjeta = tarjetaCreditoDAO.buscaPorNumero("XXX");
-		// TODO C) Observar que para un MappingSQLQuery el método findObject regresa null si no
+		// TODO C) Observar que para un MappingSQLQuery el método findObject
+		// regresa null si no
 		// existe el objeto. Comprobarlo con un assert.
-		
+		// en jdbctemplate tenmos exception, en mapping tenemos null
+		Assert.assertNull(tarjeta);
 	}
 
 	/**
@@ -93,7 +105,8 @@ public class TarjetaCreditoDAOTestCase extends AbstractTransactionalJUnit4Spring
 		tarjeta = new TarjetaCredito();
 		tarjeta.setAnioExpiracion(2015);
 		banco = new Banco();
-		banco.setId(jdbcTemplate.queryForObject("select min(banco_id) from banco", Long.class));
+		banco.setId(jdbcTemplate.queryForObject(
+				"select min(banco_id) from banco", Long.class));
 		tarjeta.setBanco(banco);
 		tarjeta.setMesExpiracion(1);
 		tarjeta.setNumeroSeguridad(23);
@@ -107,15 +120,16 @@ public class TarjetaCreditoDAOTestCase extends AbstractTransactionalJUnit4Spring
 	 */
 	private Long creaClienteFicticio() {
 
-		Long id = jdbcTemplate.queryForObject("select max(cliente_id) from cliente", Long.class);
+		Long id = jdbcTemplate.queryForObject(
+				"select max(cliente_id) from cliente", Long.class);
 		id = id == null ? 1L : id + 1L;
 
-		int result = jdbcTemplate.update(
-				"insert into cliente(cliente_id,nombre,apellido_paterno,"
+		int result = jdbcTemplate
+				.update("insert into cliente(cliente_id,nombre,apellido_paterno,"
 						+ "apellido_materno,email,rfc,direccion,telefono,usuario,password,tipo_cliente_id)"
-						+ " values(?,?,?,?,?,?,?,?,?,?,?)",
-				id, "Juan", "Lara", "Luna", "email", "rfc", "direccion", "telefono", "user", "pass",
-				TipoCliente.ADICTO.getId());
+						+ " values(?,?,?,?,?,?,?,?,?,?,?)", id, "Juan", "Lara",
+						"Luna", "email", "rfc", "direccion", "telefono",
+						"user", "pass", TipoCliente.ADICTO.getId());
 		Assert.assertEquals(1, result);
 		return id;
 	}

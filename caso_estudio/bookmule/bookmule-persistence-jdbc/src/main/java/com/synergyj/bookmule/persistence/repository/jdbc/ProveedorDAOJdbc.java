@@ -48,30 +48,36 @@ public class ProveedorDAOJdbc extends GenericJdbcDAO implements ProveedorDAO {
 
 	private static final String queryAnd = " and ";
 
+	// este objeto va realizar el insert de los objetos
 	private SimpleJdbcInsert simpleJdbcInsert;
 
 	private NamedParameterJdbcTemplate namedTemplate;
 
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * com.synergyj.bookmule.persistence.repository.jdbc.GenericJdbcDAO#setJdbcDataSource(javax.sql.
-	 * DataSource)
+	 * 
+	 * @see com.synergyj.bookmule.persistence.repository.jdbc.GenericJdbcDAO#
+	 * setJdbcDataSource(javax.sql. DataSource)
 	 */
 	@Resource
 	@Override
 	public void setJdbcDataSource(DataSource ds) {
 		super.setJdbcDataSource(ds);
 		namedTemplate = new NamedParameterJdbcTemplate(getDataSource());
-		// TODO E) instanciar a simpleJdbcInsert, especificar la tabla y el campo autoincrementable.
-
+		// TODO E) instanciar a simpleJdbcInsert, especificar la tabla y el
+		// campo autoincrementable.
+		simpleJdbcInsert = new SimpleJdbcInsert(ds);
+		// se le especifica la columna que son llaves
+		simpleJdbcInsert.withTableName("proveedor").usingGeneratedKeyColumns(
+				"proveedor_id");
 	}
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see
-	 * com.synergyj.bookmule.persistence.dao.ProveedorDAO#crea(com.synergyj.bookmule.core.domain.
-	 * Proveedor)
+	 * com.synergyj.bookmule.persistence.dao.ProveedorDAO#crea(com.synergyj.
+	 * bookmule.core.domain. Proveedor)
 	 */
 	@Override
 	public void crea(Proveedor proveedor) {
@@ -83,16 +89,18 @@ public class ProveedorDAOJdbc extends GenericJdbcDAO implements ProveedorDAO {
 		params.put("url_pedidos", proveedor.getUrlPedidos());
 
 		// params puede ser también un SqlParameterSource
-		// TODO F) invocar al método executeAndReturnKey para realizar la insercion.
-
+		// TODO F) invocar al método executeAndReturnKey para realizar la
+		// insercion.
+		id = simpleJdbcInsert.executeAndReturnKey(params);
 		proveedor.setId(id.longValue());
 	}
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see
-	 * com.synergyj.bookmule.persistence.dao.ProveedorDAO#busca(com.synergyj.bookmule.core.domain.
-	 * Proveedor)
+	 * com.synergyj.bookmule.persistence.dao.ProveedorDAO#busca(com.synergyj
+	 * .bookmule.core.domain. Proveedor)
 	 */
 	@Override
 	public Set<Proveedor> busca(Proveedor proveedor) {
@@ -127,26 +135,34 @@ public class ProveedorDAOJdbc extends GenericJdbcDAO implements ProveedorDAO {
 				query.append(queryAnd);
 			}
 		}
-		return new HashSet<>(
-				namedTemplate.query(query.toString(), params, new ProveedorRowMapper()));
+		return new HashSet<>(namedTemplate.query(query.toString(), params,
+				new ProveedorRowMapper()));
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * @see com.synergyj.bookmule.persistence.dao.ProveedorDAO#findById(java.lang.Long)
+	 * 
+	 * @see
+	 * com.synergyj.bookmule.persistence.dao.ProveedorDAO#findById(java.lang
+	 * .Long)
 	 */
 	@Override
 	public Proveedor findById(Long id) {
 
-		return namedTemplate.queryForObject(queryBuscaProveedorPrefix + queryId,
-				new MapSqlParameterSource("id", id), new ProveedorRowMapper());
+		return namedTemplate.queryForObject(
+				queryBuscaProveedorPrefix + queryId, new MapSqlParameterSource(
+						"id", id), new ProveedorRowMapper());
 	}
 
-	private static final class ProveedorRowMapper implements RowMapper<Proveedor> {
+	private static final class ProveedorRowMapper implements
+			RowMapper<Proveedor> {
 
 		/*
 		 * (non-Javadoc)
-		 * @see org.springframework.jdbc.core.RowMapper#mapRow(java.sql.ResultSet, int)
+		 * 
+		 * @see
+		 * org.springframework.jdbc.core.RowMapper#mapRow(java.sql.ResultSet,
+		 * int)
 		 */
 		@Override
 		public Proveedor mapRow(ResultSet rs, int rowNum) throws SQLException {
