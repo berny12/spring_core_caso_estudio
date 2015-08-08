@@ -31,7 +31,8 @@ import com.synergyj.bookmule.persistence.dao.ImagenLibroDAO;
  * @author Jorge Rodríguez Campos (jorge.rodriguez@synergyj.com)
  */
 @Repository("imagenLibroDAO")
-public class ImagenLibroDAOJdbc extends GenericJdbcDAO implements ImagenLibroDAO {
+public class ImagenLibroDAOJdbc extends GenericJdbcDAO implements
+		ImagenLibroDAO {
 
 	private static final String queryCrea = "insert into imagen_libro (num_imagen,imagen,libro_id) "
 			+ " values(?,?,?)";
@@ -41,19 +42,39 @@ public class ImagenLibroDAOJdbc extends GenericJdbcDAO implements ImagenLibroDAO
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see
-	 * com.synergyj.bookmule.persistence.dao.ImagenLibro#crea(com.synergyj.bookmule.persistence.dao.
-	 * ImagenLibro)
+	 * com.synergyj.bookmule.persistence.dao.ImagenLibro#crea(com.synergyj.bookmule
+	 * .persistence.dao. ImagenLibro)
 	 */
 	@Override
-	public void crea(ImagenLibro imagen, Long libroId) {
+	// para java 7, en java 8 ya no lo lleva
+	// public void crea( ImagenLibro imagen, Long libroId) {
+	public void crea(final ImagenLibro imagen, final Long libroId) {
 
-		LobHandler lobHandler;
 		int rows = 0;
+		// se instancia el lobhandler
+		LobHandler lobHandler;
 		lobHandler = new DefaultLobHandler();
 
 		// TODO A) Completar este método
-		
+		rows = getJdbcTemplate().execute(queryCrea,
+				new AbstractLobCreatingPreparedStatementCallback(lobHandler) {
+
+					@Override
+					protected void setValues(PreparedStatement ps,
+							LobCreator lobCreator) throws SQLException,
+							DataAccessException {
+						// TODO inicializar el preperadstetment
+						int index = 0;
+						ps.setInt(++index, imagen.getNumImagen());
+						lobCreator.setBlobAsBytes(ps, ++index,
+								imagen.getImagen());
+						ps.setLong(++index, libroId);
+
+					}
+
+				});
 
 		if (rows != 1) {
 			throw new IncorrectResultSizeDataAccessException(queryCrea, 1, rows);
@@ -62,15 +83,38 @@ public class ImagenLibroDAOJdbc extends GenericJdbcDAO implements ImagenLibroDAO
 
 	/*
 	 * (non-Javadoc)
-	 * @see com.synergyj.bookmule.persistence.dao.ImagenLibro#busca(java.lang.Long)
+	 * 
+	 * @see
+	 * com.synergyj.bookmule.persistence.dao.ImagenLibro#busca(java.lang.Long)
 	 */
 	@Override
 	public Set<ImagenLibro> busca(Long libroId) {
-		LobHandler lobHandler;
+
+		// para java 7 tiene que llevar final, para java 8 no
+		// LobHandler lobHandler;
+		final LobHandler lobHandler;
 		List<ImagenLibro> imagenes = null;
 
 		// TODO B) Completar este método
-		
+		lobHandler = new DefaultLobHandler();
+		imagenes = getJdbcTemplate().query(queryBusca,
+				new RowMapper<ImagenLibro>() {
+
+					@Override
+					public ImagenLibro mapRow(ResultSet rs, int rowNum)
+							throws SQLException {
+						// TODO implementamos
+						int index = 0;
+						ImagenLibro imagen;
+						imagen = new ImagenLibro();
+						imagen.setId(rs.getLong(++index));
+						imagen.setNumImagen(rs.getInt(++index));
+						imagen.setImagen(lobHandler.getBlobAsBytes(rs, ++index));
+						return imagen;
+					}
+
+				}, libroId);
+
 		return new HashSet<>(imagenes);
 	}
 
