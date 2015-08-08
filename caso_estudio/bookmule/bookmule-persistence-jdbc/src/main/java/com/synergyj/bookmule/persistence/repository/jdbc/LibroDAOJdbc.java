@@ -207,6 +207,8 @@ public class LibroDAOJdbc extends GenericJdbcDAO implements LibroDAO {
 	@Override
 	public Libro findById(Long id) {
 		// TODO A) Implementar este método
+		// query for object solo manda un objeto si hay mas o ninguno manda
+		// execepcion
 		return getJdbcTemplate()
 				.queryForObject(queryBuscaLibrosPrefix + queryLibroId,
 						new LibroRowMapper(), id);
